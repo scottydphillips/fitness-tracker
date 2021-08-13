@@ -1,24 +1,32 @@
-function calculateTotalWeight(data) {
-  const totals = [];
-
-  data.forEach((workout) => {
-    const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
-      if (type === 'resistance') {
-        return total + weight;
-      }
-      return total;
-    }, 0);
-
-    totals.push(workoutTotal);
+fetch('/api/workouts')
+  .then(res => {
+    return res.json()
+  })
+  .then(data => {
+    populateChart(data);
   });
 
-  return totals;
-}
+function calculateTotalWeight(data) {
+   const totals = [];
+ 
+   data.forEach((workout) => {
+     const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
+       if (type === 'resistance') {
+         return total + weight;
+       }
+       return total;
+     }, 0);
+  
+     totals.push(workoutTotal);
+   });
+  
+   return totals;
+ }
 
 function populateChart(data) {
   const durations = data.map(({ totalDuration }) => totalDuration);
   const pounds = calculateTotalWeight(data);
-
+  let workouts = workoutNames(data);
   const line = document.querySelector('#canvas').getContext('2d');
   const bar = document.querySelector('#canvas2').getContext('2d');
 
@@ -105,6 +113,16 @@ function populateChart(data) {
       },
     },
   });
+}
+
+function workoutNames(data) {
+  let workouts = [];
+  data.forEach(workout => {
+    workout.exercises.forEach(exercise => {
+      workouts.push(exercise.name);
+    });
+  });
+  return workouts;
 }
 
 // get all workout data from back-end
