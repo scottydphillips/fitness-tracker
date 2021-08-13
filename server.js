@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -11,12 +10,12 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workouts', {
 	useNewUrlParser: true,
 	useFineAndModify: false
 });
 
-app.use(require('./routes/api.js'));
+app.use(require('./routes/api-routes.js'));
 
 app.listen(PORT, () => {
 	console.log(`In the words of Frasier Crane, "I'm listening"`)
