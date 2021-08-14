@@ -53,7 +53,7 @@ Link to Deployed Application: https://agile-thicket-53662.herokuapp.com/
 
 ## Screenshots
 
-![Home screen shot](screenshot2021-08-13at82955PM.png)
+![Home screen shot](homepage.png)
 
 ![Add exercise screen shot](addExercise.png)
 
